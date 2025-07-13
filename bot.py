@@ -54,9 +54,22 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "❗️Похоже, вы ещё не подписаны на канал. Пожалуйста, подпишитесь и нажмите кнопку ещё раз.", 
                 reply_markup=InlineKeyboardMarkup(keyboard)
             )
+    from flask import Flask
+    import threading
+
+    app = Flask(__name__)
+
+    @app.route('/')
+    def home():
+        return 'Bot is running!', 200
+
+    def run_flask():
+        app.run(host='0.0.0.0', port=10000)
+
 
 if __name__ == "__main__":
     app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
+    threading.Thread(target=run_flask).start()
     app.run_polling()
