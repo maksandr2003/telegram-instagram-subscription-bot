@@ -46,8 +46,13 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 f"✅ Спасибо за подписку! Вот ссылка на PDF: {PDF_LINK}"
             )
         else:
+            keyboard = [
+                [InlineKeyboardButton("Перейти в Telegram канал", url=f"https://t.me/{CHANNEL_USERNAME}")],
+                [InlineKeyboardButton("Я подписан на Telegram", callback_data="check_telegram")]
+        ]
             await query.edit_message_text(
-                "❗️Похоже, вы ещё не подписаны на канал. Пожалуйста, подпишитесь и нажмите кнопку ещё раз."
+                "❗️Похоже, вы ещё не подписаны на канал. Пожалуйста, подпишитесь и нажмите кнопку ещё раз.", 
+                reply_markup=InlineKeyboardMarkup(keyboard)
             )
 
 if __name__ == "__main__":
