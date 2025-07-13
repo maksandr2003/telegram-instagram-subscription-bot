@@ -2,6 +2,7 @@ import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 import logging
+import threading
 import aiohttp
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
